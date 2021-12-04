@@ -1,0 +1,37 @@
+@model Encryption.Host.Models.EncryptionViewModel
+
+@{
+    ViewData["Title"] = "Symmetric Encryption";
+
+    var encryptionTypes = typeof(EncryptionType).GetEnumNames();
+    var actions = new SelectList(encryptionTypes);
+}
+
+<div class="text-center">
+    <h1 class="display-4">Symmetric encryption</h1>
+</div>
+
+<div class="container">
+    <form asp-controller="Encryption" asp-action="SymmetricEncryption">
+        <div class="row">
+            <div class="col form-group">
+                <label asp-for="OriginalText">Original text</label>
+                <textarea class="form-control" rows="3" id="@Html.IdFor(m => m.OriginalText)" name="@Html.NameFor(m => m.OriginalText)">@Model.OriginalText</textarea>
+            </div>
+            <div class="col form-group">
+                <label asp-for="EncryptedText">Encrypted text</label>
+                <textarea class="form-control" rows="3" id="@Html.IdFor(m => m.EncryptedText)" name="@Html.NameFor(m => m.EncryptedText)">@Model.EncryptedText</textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col" style="margin-top: 10px;">
+                <input type="password" class="form-control" asp-for="Password" value="@Model.Password" placeholder="Some random key">
+            </div>
+            <div class="col" style="margin-top: 10px;">
+                <select class="form-control" asp-for="Action" asp-items="actions"></select>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mb-2" style="margin-top: 10px;">Submit</button>
+    </form>
+</div>

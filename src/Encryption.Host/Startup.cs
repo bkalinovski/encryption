@@ -23,6 +23,7 @@ namespace Encryption.Host
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddEncryptionServices();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
