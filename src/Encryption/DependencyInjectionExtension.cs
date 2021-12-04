@@ -10,6 +10,8 @@ namespace Encryption
         {
             services.AddSingleton<ISymmetricEncryption, DesEncryptionService>();
 
+            services.AddSingleton<IAsymmetricEncryption, RsaEncryptionService>();
+
             return services;
         }
     }

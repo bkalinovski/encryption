@@ -23,11 +23,11 @@
                 <textarea class="form-control" rows="3" id="@Html.IdFor(m => m.EncryptedText)" name="@Html.NameFor(m => m.EncryptedText)">@Model.EncryptedText</textarea>
             </div>
         </div>
-        <div class="row">
-            <div class="form-group col" style="margin-top: 10px;">
+        <div class="row" style="margin-top: 10px;">
+            <div class="form-group col">
                 <input type="password" class="form-control" asp-for="Password" value="@Model.Password" placeholder="Some random key">
             </div>
-            <div class="col" style="margin-top: 10px;">
+            <div class="col">
                 <select class="form-control" asp-for="Action" asp-items="actions"></select>
             </div>
         </div>

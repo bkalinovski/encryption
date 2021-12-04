@@ -8,10 +8,12 @@ namespace Encryption.Host.Controllers
     public class EncryptionController : Controller
     {
         private readonly ISymmetricEncryption _symmetricService;
+        private readonly IAsymmetricEncryption _asymmetricService;
 
-        public EncryptionController(ISymmetricEncryption symmetricService)
+        public EncryptionController(ISymmetricEncryption symmetricService, IAsymmetricEncryption asymmetricService)
         {
             _symmetricService = symmetricService;
+            _asymmetricService = asymmetricService;
         }
 
         public IActionResult Index()
@@ -22,8 +24,7 @@ namespace Encryption.Host.Controllers
         [HttpGet]
         public IActionResult SymmetricEncryption()
         {
-            var model = new EncryptionViewModel();
-            return View(model);
+            return View(new EncryptionViewModel());
         }
 
         [HttpPost]
@@ -52,15 +53,30 @@ namespace Encryption.Host.Controllers
         [HttpPost]
         public IActionResult AsymmetricEncryption(EncryptionViewModel model)
         {
-            var action = model.Action == EncryptionType.Encryption ? "Encrypted" : "Decrypted";
-            model.EncryptedText = $"{action} '{model.OriginalText}' with password: {model.Password}";
+            if (!ModelState.IsValid)
+            {
+                throw new Exception("Provided model is not valid");
+            }
             
+            switch (model.Action)
+            {
+                case EncryptionType.Encryption:
+                    model.EncryptedText = _asymmetricService.Encrypt(model.OriginalText, model.Password);
+                    break;
+                case EncryptionType.Decryption:
+                    model.OriginalText = _asymmetricService.Decrypt(model.EncryptedText, model.Password);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
             return View(model);
         }
         
+        [HttpGet]
         public IActionResult AsymmetricEncryption()
         {
-            return View();
+            return View(new EncryptionViewModel());
         }
     }
 }
