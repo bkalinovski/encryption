@@ -38,6 +38,26 @@ namespace Encryption.Host.Controllers
                 throw new Exception("Provided model is not valid");
             }
             
+            if (string.IsNullOrEmpty(model.Password))
+            {
+                ModelState.AddModelError("password", "Password is missing.");
+            }
+            
+            if (model.Action == EncryptionType.Encryption && string.IsNullOrEmpty(model.OriginalText))
+            {
+                ModelState.AddModelError("originalText", "Original text cannot be empty");
+            }
+            
+            if (model.Action == EncryptionType.Decryption && string.IsNullOrEmpty(model.EncryptedText))
+            {
+                ModelState.AddModelError("encryptedText", "Encrypted text cannot be empty");
+            }
+            
+            if (ModelState.ErrorCount > 0)
+            {
+                return View(model);   
+            }
+            
             switch (model.Action)
             {
                 case EncryptionType.Encryption:
