@@ -1,7 +1,9 @@
 namespace Encryption.Contract
 {
-    public interface ISymmetricEncryption : IEncryption
+    public interface ISymmetricEncryption
     {
-        
+        string Encrypt(string message, string password);
+
+        string Decrypt(string message, string password);
     }
 }

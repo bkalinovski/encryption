@@ -8,13 +8,13 @@ namespace Encryption.Services
 {
     public class DesEncryptionService : ISymmetricEncryption
     {
-        public string Encrypt(string message, string key)
+        public string Encrypt(string message, string password)
         {
             byte[] myEncryptedArray = UTF8Encoding.UTF8.GetBytes(message);
 
             var MyMD5CryptoService = new MD5CryptoServiceProvider();
 
-            byte[] MysecurityKeyArray = MyMD5CryptoService.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+            byte[] MysecurityKeyArray = MyMD5CryptoService.ComputeHash(UTF8Encoding.UTF8.GetBytes(password));
 
             MyMD5CryptoService.Clear();
 
@@ -36,13 +36,13 @@ namespace Encryption.Services
                 myresultArray.Length);
         }
 
-        public string Decrypt(string message, string key)
+        public string Decrypt(string message, string password)
         {
             byte[] myDecryptArray = Convert.FromBase64String(message);
 
             var MyMD5CryptoService = new MD5CryptoServiceProvider();
 
-            byte[] MysecurityKeyArray = MyMD5CryptoService.ComputeHash(UTF8Encoding.UTF8.GetBytes(key));
+            byte[] MysecurityKeyArray = MyMD5CryptoService.ComputeHash(UTF8Encoding.UTF8.GetBytes(password));
 
             MyMD5CryptoService.Clear();
 

@@ -12,6 +12,8 @@ namespace Encryption
 
             services.AddSingleton<IAsymmetricEncryption, RsaEncryptionService>();
 
+            services.AddSingleton<IKey, KeyService>();
+
             return services;
         }
     }

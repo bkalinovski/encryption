@@ -1,6 +1,6 @@
 namespace Encryption.Host.Models
 {
-    public class EncryptionViewModel
+    public class SymmetricViewModel
     {
         public string OriginalText { get; set; }
 
@@ -9,11 +9,5 @@ namespace Encryption.Host.Models
         public string Password { get; set; }
 
         public EncryptionType Action { get; set; }
-    }
-
-    public enum EncryptionType
-    {
-        Encryption,
-        Decryption
     }
 }

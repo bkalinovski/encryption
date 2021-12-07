@@ -1,10 +1,12 @@
-@model Encryption.Host.Models.EncryptionViewModel
+@using Encryption.Contract.Models
+@model Encryption.Host.Models.AsymmetricViewModel
 
 @{
     ViewData["Title"] = "Asymmetric Encryption";
     
     var encryptionTypes = typeof(EncryptionType).GetEnumNames();
     var actions = new SelectList(encryptionTypes);
+    var publicKeys = (IEnumerable<PublicKey>)ViewBag.PublicKeys;
 }
 
 <div class="text-center">
@@ -12,7 +14,9 @@
 </div>
 
 <div class="container">
-    <form asp-controller="Encryption" asp-action="AsymmetricEncryption">
+    @Html.ValidationSummary()
+    @using (Html.BeginForm("AsymmetricEncryption", "Encryption", FormMethod.Post))
+    {
         <div class="row">
             <div class="col form-group">
                 <label asp-for="OriginalText">Original text</label>
@@ -25,14 +29,66 @@
         </div>
         <div class="row" style="margin-top: 10px;">
             <div class="col form-group">
-                <label asp-for="Password">Private Key</label>
-                <textarea class="form-control" rows="3" id="@Html.IdFor(m => m.Password)" name="@Html.NameFor(m => m.Password)">@Model.Password</textarea>
+                <label asp-for="PrivateKey">Private Key</label>
+                <textarea class="form-control" rows="3" id="@Html.IdFor(m => m.PrivateKey)" name="@Html.NameFor(m => m.PrivateKey)">@Model.PrivateKey</textarea>
             </div>
             <div class="col" style="margin-top: 24px;">
-                <select class="form-control" asp-for="Action" asp-items="actions"></select>
+                <div class="row">
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-header">Public Keys</div>
+                            <ul class="list-group list-group-flush">
+                                @foreach (var key in publicKeys)
+                                {
+                                    <li class="list-group-item">
+                                        <div style="display: flex; flex-wrap: wrap; position: relative;">
+                                            <div style="width: 50%;">@key.Title</div>
+                                            <div style="width: 10%;">@Html.RadioButtonFor(m => m.PublicKey, key.Value)</div>
+                                            <div style="width: 40%;">
+                                                <a class="btn btn-sm btn-danger" style="float: right;" asp-action="RemovePublicKey" asp-route-publicKeyId="@key.Id">Delete</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <select class="form-control" asp-for="Action" asp-items="actions"></select>
+                        <div class="row" style="margin-top: 24px;">
+                            <div class="col">
+                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">Add key</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <button type="submit" class="btn btn-primary mb-2" style="margin-top: 10px;">Submit</button>
-    </form>
+    }
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Public Key</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            @using (Html.BeginForm("AddPublicKey", "Encryption", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    <label for="keyName">Title</label>
+                    <input type="text" class="form-control" id="keyName" name="title"/>
+                    <textarea class="form-control" rows="3" name="value" style="margin-top: 10px;"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add key</button>
+                </div>
+            }
+        </div>
+    </div>
 </div>

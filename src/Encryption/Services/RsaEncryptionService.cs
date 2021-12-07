@@ -8,12 +8,12 @@ namespace Encryption.Services
         {
         }
 
-        public string Encrypt(string message, string key)
+        public string Encrypt(string message, string publicKey)
         {
             throw new System.NotImplementedException();
         }
 
-        public string Decrypt(string message, string key)
+        public string Decrypt(string message, string privateKey)
         {
             throw new System.NotImplementedException();
         }
