@@ -81,12 +81,12 @@ namespace Encryption.Host.Controllers
                 throw new Exception("Provided model is not valid");
             }
 
-            if (string.IsNullOrEmpty(model.PublicKey))
+            if (model.Action == EncryptionType.Encryption && string.IsNullOrEmpty(model.PublicKey))
             {
                 ModelState.AddModelError("publicKey", "Public key is missing. Choose one!");
             }
             
-            if (string.IsNullOrEmpty(model.PrivateKey))
+            if (model.Action == EncryptionType.Decryption && string.IsNullOrEmpty(model.PrivateKey))
             {
                 ModelState.AddModelError("privateKey", "Private key is missing. Choose one!");
             }
