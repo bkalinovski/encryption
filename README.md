@@ -6,17 +6,19 @@
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
 #### An example of Public Key:
-> -----BEGIN PUBLIC KEY-----
+```sh
+-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7pbDRvuqRL0EsKjYGqPZWu4VF
 KI1iilisb3+yW5guIP4I+T8qhP8dcUugiwa2fDwGgl3Y+PHASGdCfvYOfMefWlNU
 oGeLv4Tx6nqvq2OcVzRhYjUfIpRE7z81xhmKtvxxLTNzTAoHN6rWqarKYMFydR/s
 D+oJs7LnnJoWieh1QQIDAQAB
 -----END PUBLIC KEY-----
+```
 
-#
-#
+
 #### An example of Private Key:
-> -----BEGIN RSA PRIVATE KEY-----
+```sh
+-----BEGIN RSA PRIVATE KEY-----
 MIICXAIBAAKBgQC7pbDRvuqRL0EsKjYGqPZWu4VFKI1iilisb3+yW5guIP4I+T8q
 hP8dcUugiwa2fDwGgl3Y+PHASGdCfvYOfMefWlNUoGeLv4Tx6nqvq2OcVzRhYjUf
 IpRE7z81xhmKtvxxLTNzTAoHN6rWqarKYMFydR/sD+oJs7LnnJoWieh1QQIDAQAB
@@ -31,6 +33,7 @@ K8fG450WNncwt2PbLRZ+9CbxDqK4TW4GRYHeBD/ZKE3ScQbgH9Zh6dHyNuHD+W8y
 gNZUcrYl/BSAiHU4ywMCQDok1QgvVmc8jma9qK2dxmd4IR8varRPti4VQAMumdaE
 4s1Ofdw+8Bl2FATkdQZDLUQbWat4E5l8uGLfYZAHSow=
 -----END RSA PRIVATE KEY-----
+```
 
 ## Key generation
 
